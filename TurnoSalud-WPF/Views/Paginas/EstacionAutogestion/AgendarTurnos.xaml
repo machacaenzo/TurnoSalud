@@ -1,0 +1,110 @@
+﻿<Page x:Class="Views.Paginas.EstacionAutogestion.AgendarTurnos"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Views.Paginas.EstacionAutogestion"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      mc:Ignorable="d"
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="AgendarTurno"
+      Background="{StaticResource BrushFondo}"
+      Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <Style x:Key="MedicoCardStyle" TargetType="RadioButton">
+            <Setter Property="Background" Value="{StaticResource BrushPanel}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BrushBordeSutil}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="5,0,5,5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="cardBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8" SnapsToDevicePixels="True">
+                            <ContentPresenter Margin="{TemplateBinding Padding}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="{StaticResource BrushAcento}"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Background" Value="{StaticResource BrushHoverFila}"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource BrushAcento}"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid Margin="40">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Columna Izquierda: Selección de Especialidad y Médico -->
+        <StackPanel Grid.Column="0">
+            <iconPacks:PackIconMaterial Kind="Handshake" Foreground="{StaticResource BrushAcento}" Width="40" Height="40"/>
+            <TextBlock Text="AGENDA TUS TURNOS AQUÍ" FontSize="24" FontWeight="SemiBold" Foreground="{StaticResource BrushTextoPrimario}" Margin="0,10,0,0"/>
+            <TextBlock x:Name="lblNombrePaciente" FontSize="20" Foreground="{StaticResource BrushAcento}" FontWeight="Bold"/>
+
+            <TextBlock Text="SELECCIONA UNA ESPECIALIDAD" Style="{StaticResource FormLabel}" Margin="0,30,0,5"/>
+            <ComboBox x:Name="cmbEspecialidad" Style="{StaticResource FormComboBox}" SelectionChanged="cmbEspecialidad_SelectionChanged"/>
+
+            <TextBlock Text="SELECCIONA UN MÉDICO" Style="{StaticResource FormLabel}" Margin="0,20,0,5"/>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <ItemsControl x:Name="icMedicos">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <RadioButton GroupName="Medicos" Style="{StaticResource MedicoCardStyle}" DataContext="{Binding}" Checked="MedicoCard_Checked">
+                                <StackPanel Orientation="Vertical" Width="150">
+                                    <Border Width="80" Height="80" CornerRadius="40" HorizontalAlignment="Center">
+                                        <Border.Background>
+                                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Foto}"/>
+                                        </Border.Background>
+                                    </Border>
+                                    <TextBlock Text="{Binding NombreCompleto}" FontWeight="SemiBold" TextAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Especialidad}" Foreground="{StaticResource BrushTextoSecundario}" FontSize="11" TextAlignment="Center"/>
+                                </StackPanel>
+                            </RadioButton>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </StackPanel>
+
+        <!-- Columna Derecha: Horarios Disponibles -->
+        <Grid Grid.Column="2">
+            <TextBlock x:Name="lblPlaceholderHorarios" Text="Selecciona un médico para ver sus horarios disponibles." VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource BrushTextoSecundario}" TextWrapping="Wrap" TextAlignment="Center"/>
+            <DataGrid x:Name="dgHorariosDisponibles" Style="{StaticResource ModernDataGrid}" Visibility="Collapsed">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="DÍA" Binding="{Binding DiaNombre}" Width="*"/>
+                    <DataGridTextColumn Header="TURNO" Binding="{Binding Bloque}" Width="Auto"/>
+                    <DataGridTextColumn Header="INICIO" Binding="{Binding HoraInicioStr}" Width="Auto"/>
+                    <DataGridTextColumn Header="FIN" Binding="{Binding HoraFinStr}" Width="Auto"/>
+                    <DataGridTextColumn Header="FECHA" Binding="{Binding FechaTurno, StringFormat='dd/MM/yyyy'}" Width="*"/>
+                    <DataGridTemplateColumn Header="ELEGIR" Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource IconButton}" ToolTip="Elegir este horario" Click="btnElegir_Click">
+                                    <iconPacks:PackIconMaterial Kind="ArrowRightBoldCircle" Width="18" Height="18"/>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Page>

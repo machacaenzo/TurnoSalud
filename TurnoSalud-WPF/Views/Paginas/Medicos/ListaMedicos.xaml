@@ -1,0 +1,120 @@
+﻿<UserControl x:Class="Views.Paginas.Medicos.ListaMedicos"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Views.Paginas.Medicos"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:converters="clr-namespace:Views.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1000"
+             Background="{StaticResource BrushFondo}"
+             Loaded="UserControl_Loaded">
+
+    <UserControl.Resources>
+        <!-- Instancia de nuestro convertidor para usarlo en el DataGrid -->
+        <converters:BoolToEstadoConverter x:Key="BoolToEstadoConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Fila Superior: Búsqueda y Botones de Acción -->
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Panel de Búsqueda -->
+            <Grid Grid.Column="0" Width="350" HorizontalAlignment="Left">
+                <TextBlock Text="Buscar médico por cualquier campo..." 
+                           Foreground="{StaticResource BrushTextoSecundario}" VerticalAlignment="Center" Margin="15,0,0,0"
+                           IsHitTestVisible="False" Panel.ZIndex="1"
+                           Visibility="{Binding ElementName=txtBuscar, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBox x:Name="txtBuscar" Style="{StaticResource ModernTextBox}" TextChanged="txtBuscar_TextChanged"/>
+            </Grid>
+
+            <!-- Panel de Botones -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <CheckBox x:Name="chkMostrarInactivos" Content="Mostrar Inactivos" VerticalAlignment="Center" Margin="0,0,20,0"
+                          Checked="chkMostrarInactivos_CheckedChanged" Unchecked="chkMostrarInactivos_CheckedChanged"/>
+
+                <Button x:Name="btnEspecialidades" Style="{StaticResource PrimaryButton}" Click="btnEspecialidades_Click" ToolTip="Gestionar Especialidades">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="Dna" VerticalAlignment="Center" Margin="0,0,8,0" Width="16" Height="16"/>
+                        <TextBlock Text="ESPECIALIDADES"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="btnNuevoMedico" Style="{StaticResource PrimaryButton}" Margin="10,0,0,0" Click="btnNuevoMedico_Click" ToolTip="Agregar un nuevo médico">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="AccountPlus" VerticalAlignment="Center" Margin="0,0,8,0" Width="16" Height="16"/>
+                        <TextBlock Text="NUEVO MÉDICO"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="btnNuevoHorario" Style="{StaticResource PrimaryButton}" Margin="10,0,0,0" Click="btnNuevoHorario_Click" ToolTip="Asignar horarios a un médico">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="ClockPlusOutline" VerticalAlignment="Center" Margin="0,0,8,0" Width="16" Height="16"/>
+                        <TextBlock Text="NUEVO HORARIO"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="btnVerHorarios" Style="{StaticResource SuccessButton}" Margin="10,0,0,0" Background="#17A2B8" Click="btnVerHorarios_Click" ToolTip="Ver todos los horarios asignados">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="CalendarClock" VerticalAlignment="Center" Margin="0,0,8,0" Width="16" Height="16"/>
+                        <TextBlock Text="VER HORARIOS"/>
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+        </Grid>
+
+        <!-- DataGrid para mostrar la lista de Médicos -->
+        <DataGrid x:Name="dgMedicos" Grid.Row="1" Style="{StaticResource ModernDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="MATRÍCULA" Binding="{Binding Matricula}" Width="*"/>
+                <DataGridTextColumn Header="ESTADO" Binding="{Binding Estado, Converter={StaticResource BoolToEstadoConverter}}" Width="Auto"/>
+                <DataGridTextColumn Header="NOMBRE" Binding="{Binding Nombre}" Width="1.2*"/>
+                <DataGridTextColumn Header="APELLIDO" Binding="{Binding Apellido}" Width="1.2*"/>
+                <DataGridTextColumn Header="ESPECIALIDAD" Binding="{Binding Especialidad}" Width="1.2*"/>
+                <DataGridTextColumn Header="EMAIL" Binding="{Binding Email}" Width="1.5*"/>
+                <DataGridTextColumn Header="TELÉFONO" Binding="{Binding Telefono}" Width="*"/>
+                <DataGridTextColumn Header="DNI" Binding="{Binding Dni}" Width="*"/>
+
+                <!-- Columna de acciones para médicos ACTIVOS -->
+                <DataGridTemplateColumn x:Name="columnaAccionesActivas" Header="ACCIONES" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Button Style="{StaticResource IconButton}" ToolTip="Editar Médico" Click="btnEditar_Click">
+                                    <iconPacks:PackIconMaterial Kind="Pencil" Width="16" Height="16"/>
+                                </Button>
+                                <Button Style="{StaticResource IconButtonDelete}" Margin="5,0,0,0" ToolTip="Dar de Baja Médico" Click="btnEliminar_Click">
+                                    <iconPacks:PackIconMaterial Kind="TrashCan" Width="16" Height="16"/>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- Columna de acciones para médicos INACTIVOS -->
+                <DataGridTemplateColumn x:Name="columnaAccionesInactivas" Header="ACCIONES" Width="Auto" Visibility="Collapsed">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource IconButton}" ToolTip="Reactivar Médico" Click="btnReactivar_Click">
+                                <iconPacks:PackIconMaterial Kind="Restore" Width="16" Height="16"/>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

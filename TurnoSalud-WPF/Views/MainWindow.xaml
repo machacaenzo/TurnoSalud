@@ -1,0 +1,125 @@
+﻿<Window x:Class="Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:Views"
+        mc:Ignorable="d"
+        Title="TurnoSalud" Height="720" Width="1280"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent" WindowStartupLocation="CenterScreen" >
+
+    <Border Background="{StaticResource BrushFondo}" CornerRadius="15" BorderBrush="#DCDCDC" BorderThickness="1" MouseDown="Border_MouseDown">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230"/>
+                <!-- Ancho fijo para el menú -->
+                <ColumnDefinition Width="*"/>
+                <!-- El resto para el contenido -->
+            </Grid.ColumnDefinitions>
+
+            <!--   PANEL DE NAVEGACIÓN IZQUIERDO   -->
+            <Border Grid.Column="0" Background="{StaticResource BrushPrimario}" CornerRadius="15,0,0,15">
+                <DockPanel>
+                    <!-- BOTÓN CERRAR SESIÓN (ABAJO) -->
+                    <RadioButton x:Name="RbCerrarSesion" Style="{StaticResource MenuButton}" DockPanel.Dock="Bottom" Margin="15" Click="RbCerrarSesion_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconMaterial Kind="Logout" Style="{StaticResource MenuButtonIcon}"/>
+                            <TextBlock Text="Cerrar Sesion"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <!-- BOTONES DEL MENÚ (ARRIBA) -->
+                    <StackPanel  x:Name="menuContainer" DockPanel.Dock="Top" Margin="0,30,0,0">
+
+                        <RadioButton x:Name="RbPrincipal" Style="{StaticResource MenuButton}" IsChecked="True" GroupName="Menu" Click="RbPrincipal_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="Home" Style="{StaticResource MenuButtonIcon}"/>
+                                <TextBlock Text="Principal"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton x:Name="RbUsuarios" Style="{StaticResource MenuButton}" GroupName="Menu" Click="RbUsuarios_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="AccountGroup" Style="{StaticResource MenuButtonIcon}"/>
+                                <TextBlock Text="Usuarios"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton x:Name="RbMedicos" Style="{StaticResource MenuButton}" GroupName="Menu" Click="RbMedicos_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="Doctor" Style="{StaticResource MenuButtonIcon}"/>
+                                <TextBlock Text="Médicos"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton x:Name="RbPacientes" Style="{StaticResource MenuButton}" GroupName="Menu" Click="RbPacientes_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="AccountHeartOutline" Style="{StaticResource MenuButtonIcon}"/>
+                                <TextBlock Text="Pacientes"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton x:Name="RbConsulta" Style="{StaticResource MenuButton}" GroupName="Menu" Click="RbConsulta_Click" >
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="Stethoscope" Style="{StaticResource MenuButtonIcon}"/>
+                                <TextBlock Text="Consulta"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                        <RadioButton x:Name="RbReportes" Style="{StaticResource MenuButton}" GroupName="Menu" Click="RbReportes_Click" >
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="ChartLine" Style="{StaticResource MenuButtonIcon}"/>
+                                <TextBlock Text="Reportes"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+
+            <!--      CONTENIDO PRINCIPAL       -->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- BARRA SUPERIOR DENTRO DEL CONTENIDO -->
+                <Grid Grid.Row="0" Margin="20,10,20,0">
+
+                    <TextBlock x:Name="PageTitle" Text="Dashboard" FontSize="22" FontWeight="SemiBold" Foreground="{StaticResource BrushTextoPrimario}" VerticalAlignment="Center"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+
+                        <!-- Información del Usuario -->
+                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                            <Border Width="30" Height="30" CornerRadius="15" Margin="0,0,10,0">
+                                <Border.Background>
+                                    <ImageBrush x:Name="InfoFotoUsuario" ImageSource="/img/user.png"/>
+                                </Border.Background>
+                            </Border>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock x:Name="InfoNombreUsuario" Text="Nombre de Usuario" Foreground="{StaticResource BrushTextoPrimario}" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="InfoRolUsuario" Text="Rol de Usuario" Foreground="{StaticResource BrushTextoSecundario}" FontSize="11"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Botones de Ventana (Minimizar, Maximizar, Cerrar) -->
+                        <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                            <Button x:Name="btnMinimize" Content="—" Width="30" Height="30" Foreground="{StaticResource BrushTextoSecundario}" Click="btnMinimize_Click" Background="Transparent" BorderThickness="0" FontWeight="Bold"/>
+                            <Button x:Name="btnMaximize" Content="☐" Width="30" Height="30" Margin="5,0" Foreground="{StaticResource BrushTextoSecundario}" Click="btnMaximize_Click" Background="Transparent" BorderThickness="0" FontWeight="Bold"/>
+                            <Button x:Name="btnClose" Content="✕" Width="30" Height="30" Foreground="{StaticResource BrushTextoSecundario}" Click="btnClose_Click" Background="Transparent" BorderThickness="0" FontWeight="Bold"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Grid>
+
+                <!-- ESPACIO DONDE SE CARGARÁN LAS VISTAS -->
+                <ContentControl Grid.Row="1" x:Name="MainContent" Margin="20,10"/>
+
+            </Grid>
+        </Grid>
+    </Border>
+
+</Window>

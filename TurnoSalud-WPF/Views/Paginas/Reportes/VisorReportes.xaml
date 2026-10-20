@@ -1,0 +1,39 @@
+﻿<Window x:Class="Views.Paginas.Reportes.VisorReportes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Views.Paginas.Reportes"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        Title="Visor de Reportes" Height="600" Width="900"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        WindowStartupLocation="CenterScreen" ShowInTaskbar="False">
+
+    <Border Background="{StaticResource BrushPanel}" CornerRadius="10" BorderBrush="#CCCCCC" BorderThickness="1" MouseDown="Border_MouseDown">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Barra de Título -->
+            <Grid Grid.Row="0">
+                <TextBlock x:Name="lblTitulo" Text="REPORTE" FontSize="18" FontWeight="Bold" Foreground="{StaticResource BrushTextoPrimario}" Margin="20"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+                    <Button x:Name="btnExportarExcel" Style="{StaticResource ActionButton}" MinWidth="0" Padding="15,8" Click="btnExportarExcel_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconMaterial Kind="FileExcel" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBlock Text="Exportar a Excel"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnClose" Content="✕" Click="btnClose_Click" Width="30" Height="30" Margin="10,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- DataGrid para mostrar los datos del reporte -->
+            <DataGrid x:Name="dgReporte" Grid.Row="1" Margin="20,0,20,20" Style="{StaticResource ModernDataGrid}"
+                      AutoGenerateColumns="True" IsReadOnly="True" AutoGeneratingColumn="dgReporte_AutoGeneratingColumn"/>
+        </Grid>
+    </Border>
+</Window>

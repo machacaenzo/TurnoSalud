@@ -1,0 +1,52 @@
+﻿<Window x:Class="Views.Paginas.Medicos.VerHorarios"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Views.Paginas.Medicos"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        Title="Ver Horarios" Height="500" Width="700"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        WindowStartupLocation="CenterScreen" ShowInTaskbar="False"
+        Loaded="Window_Loaded">
+
+    <Border Background="{StaticResource BrushPanel}" CornerRadius="10" BorderBrush="#CCCCCC" BorderThickness="1" MouseDown="Border_MouseDown">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Barra de Título -->
+            <Grid Grid.Row="0">
+                <TextBlock x:Name="lblTitulo" Text="HORARIO DEL MÉDICO" FontSize="18" FontWeight="Bold" Foreground="{StaticResource BrushTextoPrimario}" Margin="20"/>
+                <Button x:Name="btnClose" Content="✕" Click="btnClose_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+            </Grid>
+
+            <!-- Contenido Principal -->
+            <StackPanel Grid.Row="1" Margin="20,0,20,20">
+                <TextBlock x:Name="lblMedicoNombre" Text="MÉDICO: " Style="{StaticResource FormLabel}" FontSize="14" Margin="0,0,0,10"/>
+                <DataGrid x:Name="dgHorarios" Style="{StaticResource ModernDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="DÍA" Binding="{Binding DiaNombre}" Width="*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="TURNO" Binding="{Binding Bloque}" Width="*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="HORA INICIO" Binding="{Binding HoraInicioStr}" Width="*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="HORA FIN" Binding="{Binding HoraFinStr}" Width="*" IsReadOnly="True"/>
+                        <DataGridTemplateColumn Header="ELIMINAR" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource IconButtonDelete}" ToolTip="Eliminar este horario" Click="btnEliminar_Click">
+                                        <iconPacks:PackIconMaterial Kind="TrashCan" Width="16" Height="16"/>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Grid>
+    </Border>
+
+
+</Window>

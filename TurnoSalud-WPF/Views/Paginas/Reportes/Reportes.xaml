@@ -1,0 +1,152 @@
+﻿<UserControl x:Class="Views.Paginas.Reportes.Reportes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Views.Paginas.Reportes"
+            xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1000"
+             Background="{StaticResource BrushFondo}" Loaded="UserControl_Loaded">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20">
+
+            <!-- Panel 1: Reporte de Turnos por Fecha -->
+            <Border Background="{StaticResource BrushPanel}" CornerRadius="8" Padding="20" Margin="0,0,0,20">
+                <StackPanel>
+                    <!-- Título arriba -->
+                    <TextBlock Text="REPORTE DE TURNOS POR FECHA" FontSize="16" FontWeight="Bold" Foreground="{StaticResource BrushTextoPrimario}" Margin="0,0,0,10"/>
+
+                    <!-- Controles y Botón abajo -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <!-- Columna para los filtros -->
+                            <ColumnDefinition Width="Auto"/>
+                            <!-- Columna para el botón -->
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Bottom">
+                            <StackPanel Margin="0,0,10,0">
+                                <TextBlock Text="DESDE" Style="{StaticResource FormLabel}"/>
+                                <DatePicker x:Name="dpFechaDesde1" Style="{StaticResource FormDatePicker}"/>
+                            </StackPanel>
+                            <StackPanel Margin="10,0,0,0">
+                                <TextBlock Text="HASTA" Style="{StaticResource FormLabel}"/>
+                                <DatePicker x:Name="dpFechaHasta1" Style="{StaticResource FormDatePicker}"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <Button Grid.Column="1" Style="{StaticResource ActionButton}" VerticalAlignment="Bottom" Click="btnGenerarTurnosPorFecha_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="ChartBar" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBlock Text="Generar"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Panel 2: Reporte de Turnos por Médico -->
+            <Border Background="{StaticResource BrushPanel}" CornerRadius="8" Padding="20" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="REPORTE DE TURNOS POR MÉDICO" FontSize="16" FontWeight="Bold" Foreground="{StaticResource BrushTextoPrimario}" Margin="0,0,0,10"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Bottom">
+                            <StackPanel Margin="0,0,10,0">
+                                <TextBlock Text="DESDE" Style="{StaticResource FormLabel}"/>
+                                <DatePicker x:Name="dpFechaDesde2" Style="{StaticResource FormDatePicker}"/>
+                            </StackPanel>
+                            <StackPanel Margin="10,0,10,0">
+                                <TextBlock Text="HASTA" Style="{StaticResource FormLabel}"/>
+                                <DatePicker x:Name="dpFechaHasta2" Style="{StaticResource FormDatePicker}"/>
+                            </StackPanel>
+                            <StackPanel Margin="10,0,0,0">
+                                <TextBlock Text="MÉDICO" Style="{StaticResource FormLabel}"/>
+                                <ComboBox x:Name="cmbMedico" Style="{StaticResource FormComboBox}" Width="250"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <Button Grid.Column="1" Style="{StaticResource ActionButton}" VerticalAlignment="Bottom" Click="btnGenerarTurnosPorMedico_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="ChartBar" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBlock Text="Generar"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Panel 3: Reporte de Cantidad de Turnos por Especialidad -->
+            <Border Background="{StaticResource BrushPanel}" CornerRadius="8" Padding="20" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="REPORTE DE CANTIDAD DE TURNOS POR ESPECIALIDAD" FontSize="16" FontWeight="Bold" Foreground="{StaticResource BrushTextoPrimario}" Margin="0,0,0,10"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Bottom">
+                            <StackPanel Margin="0,0,10,0">
+                                <TextBlock Text="DESDE" Style="{StaticResource FormLabel}"/>
+                                <DatePicker x:Name="dpFechaDesde3" Style="{StaticResource FormDatePicker}"/>
+                            </StackPanel>
+                            <StackPanel Margin="10,0,0,0">
+                                <TextBlock Text="HASTA" Style="{StaticResource FormLabel}"/>
+                                <DatePicker x:Name="dpFechaHasta3" Style="{StaticResource FormDatePicker}"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <Button Grid.Column="1" Style="{StaticResource ActionButton}" VerticalAlignment="Bottom" Click="btnGenerarTurnosPorEspecialidad_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="ChartBar" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBlock Text="Generar"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Panel 4: Reporte de Pacientes Atendidos -->
+            <Border Background="{StaticResource BrushPanel}" CornerRadius="8" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="REPORTE DE PACIENTES ATENDIDOS" FontSize="16" FontWeight="Bold" Foreground="{StaticResource BrushTextoPrimario}" Margin="0,0,0,10"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Bottom">
+                            <StackPanel Margin="0,0,10,0">
+                                <TextBlock Text="DESDE" Style="{StaticResource FormLabel}"/>
+                                <DatePicker x:Name="dpFechaDesde4" Style="{StaticResource FormDatePicker}"/>
+                            </StackPanel>
+                            <StackPanel Margin="10,0,0,0">
+                                <TextBlock Text="HASTA" Style="{StaticResource FormLabel}"/>
+                                <DatePicker x:Name="dpFechaHasta4" Style="{StaticResource FormDatePicker}"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <Button Grid.Column="1" Style="{StaticResource ActionButton}" VerticalAlignment="Bottom" Click="btnGenerarPacientesAtendidos_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="ChartBar" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBlock Text="Generar"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+
+
+</UserControl>

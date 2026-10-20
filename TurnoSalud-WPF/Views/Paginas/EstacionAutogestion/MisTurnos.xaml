@@ -1,0 +1,61 @@
+﻿<Page x:Class="Views.Paginas.EstacionAutogestion.MisTurnos"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Views.Paginas.EstacionAutogestion"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="MisTurnos"
+      Background="{StaticResource BrushFondo}"
+      Loaded="Page_Loaded">
+
+    <Grid Margin="40">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <iconPacks:PackIconMaterial Kind="Handshake" Grid.Row="0" Foreground="{StaticResource BrushAcento}" Width="40" Height="40"/>
+        <TextBlock Grid.Row="0" Text="MIS TURNOS" FontSize="24" FontWeight="SemiBold" Foreground="{StaticResource BrushTextoPrimario}" HorizontalAlignment="Center"/>
+
+        <!-- Nombre del Paciente ahora en su propia fila -->
+        <TextBlock x:Name="lblNombrePaciente" Grid.Row="1" FontSize="20" Foreground="{StaticResource BrushAcento}" FontWeight="Bold" HorizontalAlignment="Center"/>
+
+        <!-- ComboBox de filtro en su propia fila -->
+        <ComboBox x:Name="cmbEstado" Grid.Row="2" Style="{StaticResource FormComboBox}" Width="300" HorizontalAlignment="Left" SelectionChanged="cmbEstado_SelectionChanged"/>
+
+        <DataGrid x:Name="dgTurnos" Grid.Row="3" Style="{StaticResource ModernDataGrid}" Margin="0,15,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="FECHA" Binding="{Binding FechaTurno, StringFormat='dd/MM/yyyy'}" Width="*"/>
+                <DataGridTextColumn Header="DÍA" Binding="{Binding DiaNombre}" Width="*"/>
+                <DataGridTextColumn Header="HORARIO" Binding="{Binding HoraInicioStr}" Width="Auto"/>
+                <DataGridTextColumn Header="MÉDICO" Binding="{Binding NombreMedico}" Width="1.5*"/>
+                <DataGridTextColumn Header="ESPECIALIDAD" Binding="{Binding Especialidad}" Width="1.2*"/>
+                <DataGridTextColumn Header="ESTADO" Binding="{Binding EstadoNombre}" Width="*"/>
+                <DataGridTemplateColumn x:Name="colAccionCancelar" Header="ACCIÓN" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource IconButtonDelete}" ToolTip="Cancelar Turno" Click="btnCancelar_Click">
+                                <iconPacks:PackIconMaterial Kind="CalendarRemove" Width="16" Height="16"/>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Botón Volver ahora en la última fila -->
+        <Button x:Name="btnVolver" Grid.Row="4" Style="{StaticResource PrimaryButton}" Background="{StaticResource BrushTextoSecundario}"
+                Padding="30,12" HorizontalAlignment="Left" Margin="0,20,0,0" Click="btnVolver_Click">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterial Kind="ArrowLeft" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <TextBlock Text="VOLVER" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Page>

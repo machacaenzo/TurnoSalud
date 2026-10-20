@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="Views.Paginas.Consutas.Consultas"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Views.Paginas.Consutas"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1000"
+             Background="{StaticResource BrushFondo}" Loaded="UserControl_Loaded">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Fila de Controles Superiores -->
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <CheckBox x:Name="chkMostrarAtendidos" Content="MOSTRAR SOLO TURNOS ATENDIDOS" VerticalAlignment="Center" 
+                          Checked="chkMostrarAtendidos_CheckedChanged" Unchecked="chkMostrarAtendidos_CheckedChanged"/>
+                <DatePicker x:Name="dpFecha" Style="{StaticResource FormDatePicker}" Margin="20,0,0,0" VerticalAlignment="Center" 
+                            SelectedDateChanged="dpFecha_SelectedDateChanged" Visibility="Collapsed"/>
+            </StackPanel>
+
+            <Button x:Name="btnVerMisPacientes" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Right" Click="btnVerMisPacientes_Click">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Kind="AccountGroup" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBlock Text="VER MIS PACIENTES"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <!-- DataGrid de Turnos -->
+        <DataGrid x:Name="dgTurnos" Grid.Row="1" Style="{StaticResource ModernDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="PACIENTE" Binding="{Binding NombrePaciente}" Width="1.5*"/>
+                <DataGridTextColumn Header="TURNO" Binding="{Binding Bloque}" Width="*"/>
+                <DataGridTextColumn Header="HORA INICIO" Binding="{Binding HoraInicioStr}" Width="Auto"/>
+                <DataGridTextColumn Header="HORA FIN" Binding="{Binding HoraFinStr}" Width="Auto"/>
+                <DataGridTextColumn Header="FECHA" Binding="{Binding FechaTurno, StringFormat='dd/MM/yyyy'}" Width="*"/>
+                <DataGridTextColumn Header="FECHA REGISTRO" Binding="{Binding FechaRegistro, StringFormat='dd/MM/yyyy HH:mm'}" Width="1.2*"/>
+                <DataGridTextColumn Header="ESTADO" Binding="{Binding EstadoNombre}" Width="*"/>
+
+                <!-- Columna de acción para registrar la consulta -->
+                <DataGridTemplateColumn x:Name="colAccionConsulta" Header="ACCIONES" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource IconButton}" ToolTip="Registrar Consulta" Click="btnRegistrarConsulta_Click">
+                                <iconPacks:PackIconMaterial Kind="FileDocumentEditOutline" Width="18" Height="18"/>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

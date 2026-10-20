@@ -1,0 +1,55 @@
+﻿<Window x:Class="Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:Views"
+        mc:Ignorable="d"
+        Title="Inicio de Sesión" Height="520" Width="400"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        WindowStartupLocation="CenterScreen" ShowInTaskbar="True">
+
+    <Border Background="{StaticResource BrushFondo}" CornerRadius="15" BorderBrush="#DCDCDC" BorderThickness="1" MouseDown="Border_MouseDown">
+        <Grid>
+            <Border Height="40" VerticalAlignment="Top" Background="{StaticResource BrushPrimario}" CornerRadius="15,15,0,0">
+                <Grid>
+                    <TextBlock Text="INICIAR SESION" Foreground="{StaticResource BrushTextoSobrePrimario}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Button x:Name="btnClose" Content="✕" Width="30" Height="30" Click="btnClose_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0" Background="Transparent" BorderThickness="0" FontWeight="Bold" Foreground="{StaticResource BrushTextoSobrePrimario}"/>
+                </Grid>
+            </Border>
+
+            <StackPanel Margin="30,60,30,30">
+                <TextBlock Text="¡BIENVENIDO!" FontSize="24" FontWeight="Bold" Foreground="{StaticResource BrushTextoPrimario}" HorizontalAlignment="Center"/>
+                <TextBlock Text="INGRESA TUS DATOS" FontSize="14" Foreground="{StaticResource BrushTextoSecundario}" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                <iconPacks:PackIconMaterial Kind="AccountCircle" Width="80" Height="80" HorizontalAlignment="Center" Foreground="{StaticResource BrushPrimario}" Margin="0,0,0,20"/>
+                <TextBlock Text="NOMBRE USUARIO" Style="{StaticResource FormLabel}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <iconPacks:PackIconMaterial Kind="Account" Style="{StaticResource MenuButtonIcon}" Foreground="{StaticResource BrushTextoSecundario}" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtUsuario" Grid.Column="1" Style="{StaticResource FormTextBox}"/>
+                </Grid>
+                <TextBlock Text="CONTRASEÑA" Style="{StaticResource FormLabel}" Margin="0,15,0,5"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <iconPacks:PackIconMaterial Kind="Lock" Style="{StaticResource MenuButtonIcon}" Foreground="{StaticResource BrushTextoSecundario}" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                    <PasswordBox x:Name="txtPassword" Grid.Column="1" Style="{StaticResource FormPasswordBox}"/>
+                    <TextBox x:Name="txtPasswordVisible" Grid.Column="1" Style="{StaticResource FormTextBox}" Visibility="Collapsed"/>
+                    <Button x:Name="btnVerContrasena" Grid.Column="2" Click="btnVerContrasena_Click" Style="{StaticResource IconButton}" Width="35" Height="35" Margin="5,0,0,0">
+                        <iconPacks:PackIconMaterial x:Name="IconoVerContrasena" Kind="Eye" Width="18" Height="18"/>
+                    </Button>
+                </Grid>
+                <TextBlock x:Name="lblMensajeError" Style="{StaticResource FormErrorLabel}" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                <Button x:Name="btnIngresar" Content="INICIAR" Style="{StaticResource PrimaryButton}" Margin="0,20,0,0" Click="btnIngresar_Click"/>
+               
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

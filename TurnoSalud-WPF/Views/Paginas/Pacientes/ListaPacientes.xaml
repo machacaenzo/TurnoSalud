@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="Views.Paginas.Pacientes.ListaPacientes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Views.Paginas.Pacientes"
+            xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:converters="clr-namespace:Views.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1000"
+             Background="{StaticResource BrushFondo}" Loaded="UserControl_Loaded">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Fila Superior -->
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Botones de Acción Izquierda -->
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Button x:Name="btnNuevoPaciente" Style="{StaticResource PrimaryButton}" Click="btnNuevoPaciente_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="AccountPlus" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="NUEVO PACIENTE"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnNuevoTurno" Style="{StaticResource PrimaryButton}" Margin="10,0,0,0" Click="btnNuevoTurno_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="CalendarPlus" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="NUEVO TURNO"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+            <!-- Búsqueda en el Centro -->
+            <Grid Grid.Column="1" Width="350" HorizontalAlignment="Center">
+                <TextBlock Text="Buscar pacientes..." Foreground="{StaticResource BrushTextoSecundario}" VerticalAlignment="Center" Margin="15,0,0,0" IsHitTestVisible="False" Panel.ZIndex="1"
+                           Visibility="{Binding ElementName=txtBuscar, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBox x:Name="txtBuscar" Style="{StaticResource ModernTextBox}" TextChanged="txtBuscar_TextChanged"/>
+            </Grid>
+
+            <!-- Botones de Acción Derecha -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button x:Name="btnVerTurnosPaciente" Style="{StaticResource PrimaryButton}" Click="btnVerTurnosPaciente_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="CalendarAccount" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="VER TURNOS DEL PACIENTE"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnVerTurnosHoy" Style="{StaticResource PrimaryButton}" Margin="10,0,0,0" Click="btnVerTurnosHoy_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="CalendarToday" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="VER TURNOS DE HOY"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- DataGrid de Pacientes -->
+        <DataGrid x:Name="dgPacientes" Grid.Row="1" Style="{StaticResource ModernDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="DNI" Binding="{Binding DNI}" Width="*"/>
+                <DataGridTextColumn Header="NOMBRE" Binding="{Binding Nombre}" Width="1.5*"/>
+                <DataGridTextColumn Header="APELLIDO" Binding="{Binding Apellido}" Width="1.5*"/>
+                <DataGridTemplateColumn Header="ACCIONES" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Style="{StaticResource IconButton}" ToolTip="Editar Paciente" Click="btnEditar_Click">
+                                    <iconPacks:PackIconMaterial Kind="Pencil" Width="16" Height="16"/>
+                                </Button>
+                                <Button Style="{StaticResource IconButton}" Margin="5,0,0,0" ToolTip="Ver Historial Clínico" Click="btnHistorial_Click">
+                                    <iconPacks:PackIconMaterial Kind="ClipboardListOutline" Width="16" Height="16"/>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

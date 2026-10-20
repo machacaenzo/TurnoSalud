@@ -1,0 +1,97 @@
+﻿<Window x:Class="Views.Paginas.Usuarios.GestionUsuario"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Views.Paginas.Usuarios"
+         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        Title="Gestión de Usuario" Height="550" Width="800"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        WindowStartupLocation="CenterScreen" ShowInTaskbar="False">
+
+    <Border Background="{StaticResource BrushFondo}" CornerRadius="10" BorderBrush="#CCCCCC" BorderThickness="1" MouseDown="Border_MouseDown">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Barra de Título -->
+                <RowDefinition Height="*"/>
+                <!-- Contenido del Formulario -->
+            </Grid.RowDefinitions>
+
+            <!-- Barra de Título -->
+            <Grid Grid.Row="0">
+                <TextBlock x:Name="lblTitulo" Text="NUEVO USUARIO" FontSize="18" FontWeight="Bold" Foreground="{StaticResource BrushTextoPrimario}" Margin="20"/>
+                <Button x:Name="btnClose" Content="✕" Width="30" Height="30" Click="btnClose_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Background="Transparent" BorderThickness="0" FontWeight="Bold" Foreground="{StaticResource BrushTextoSecundario}"/>
+            </Grid>
+
+            <!-- Contenido del Formulario -->
+            <Grid Grid.Row="1" Margin="20,0,20,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="250"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Columna Izquierda de Campos -->
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="DNI" Style="{StaticResource FormLabel}"/>
+                    <TextBox x:Name="txtDni" Style="{StaticResource FormTextBox}"/>
+
+                    <TextBlock Text="NOMBRES" Style="{StaticResource FormLabel}" Margin="0,10,0,5"/>
+                    <TextBox x:Name="txtNombres" Style="{StaticResource FormTextBox}"/>
+
+                    <TextBlock Text="APELLIDO" Style="{StaticResource FormLabel}" Margin="0,10,0,5"/>
+                    <TextBox x:Name="txtApellido" Style="{StaticResource FormTextBox}"/>
+
+                    <TextBlock Text="EMAIL" Style="{StaticResource FormLabel}" Margin="0,10,0,5"/>
+                    <TextBox x:Name="txtEmail" Style="{StaticResource FormTextBox}"/>
+
+                    <TextBlock Text="TELÉFONO" Style="{StaticResource FormLabel}" Margin="0,10,0,5"/>
+                    <TextBox x:Name="txtTelefono" Style="{StaticResource FormTextBox}"/>
+                </StackPanel>
+
+                <!-- Columna Central de Campos -->
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="DIRECCIÓN" Style="{StaticResource FormLabel}"/>
+                    <TextBox x:Name="txtDireccion" Style="{StaticResource FormTextBox}"/>
+
+                    <TextBlock Text="FECHA NACIMIENTO" Style="{StaticResource FormLabel}" Margin="0,10,0,5"/>
+                    <DatePicker x:Name="dtpFechaNacimiento" Style="{StaticResource FormDatePicker}"/>
+
+                    <TextBlock Text="LOGIN NAME" Style="{StaticResource FormLabel}" Margin="0,10,0,5"/>
+                    <TextBox x:Name="txtNombreUsuario" Style="{StaticResource FormTextBox}"/>
+
+                    <TextBlock Text="CONTRASEÑA" Style="{StaticResource FormLabel}" Margin="0,10,0,5"/>
+                    <PasswordBox x:Name="txtPassword" Style="{StaticResource FormPasswordBox}"/>
+
+                    <CheckBox x:Name="chkCambiarPassword" Content="Desea cambiar la contraseña" Margin="0,10,0,0" Visibility="Collapsed" Checked="chkCambiarPassword_CheckedChanged" Unchecked="chkCambiarPassword_CheckedChanged"/>
+
+                    <TextBlock Text="ROL" Style="{StaticResource FormLabel}" Margin="0,10,0,5"/>
+                    <ComboBox x:Name="cmbRol" Style="{StaticResource FormComboBox}"/>
+                </StackPanel>
+
+                <!-- Columna Derecha (Foto y Botón Guardar) -->
+                <Grid Grid.Column="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Border Width="150" Height="150" CornerRadius="75" Margin="0,20,0,0" BorderBrush="{StaticResource BrushAcento}" BorderThickness="2">
+                            <Border.Background>
+                                <ImageBrush x:Name="imgFoto" Stretch="UniformToFill"/>
+                            </Border.Background>
+                        </Border>
+                        <Button x:Name="btnCambiarFoto" Content="Cambiar Foto" Margin="0,10,0,0" Style="{StaticResource PrimaryButton}" Padding="15,8" Click="btnCambiarFoto_Click"/>
+                    </StackPanel>
+
+                    <Button x:Name="btnGuardar" Grid.Row="1" Content="Guardar" Style="{StaticResource SuccessButton}" Height="40" VerticalAlignment="Bottom" Click="btnGuardar_Click"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

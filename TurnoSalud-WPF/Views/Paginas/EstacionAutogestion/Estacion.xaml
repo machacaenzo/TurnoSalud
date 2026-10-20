@@ -1,0 +1,14 @@
+﻿<Window x:Class="Views.Paginas.EstacionAutogestion.Estacion"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Views.Paginas.EstacionAutogestion"
+        mc:Ignorable="d"
+        Title="TurnoSalud - Estación de Autogestión" Height="720" Width="1280"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        WindowStartupLocation="CenterScreen">
+
+    <!-- Usamos un Frame para la navegación entre páginas -->
+    <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+</Window>
